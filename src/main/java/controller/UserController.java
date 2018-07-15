@@ -1,5 +1,6 @@
 package controller;
 
+import dao.UserDao;
 import entity.User;
 
 import javax.servlet.ServletException;
@@ -8,13 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-@WebServlet("/hello")
+@WebServlet("/user")
 public class UserController extends HttpServlet {
-
+    UserDao userDao = new UserDao();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<User> allUsers = userDao.getAllUsers();
+        request.setAttribute("userList",allUsers);
         request.getRequestDispatcher("jsp/user.jsp").forward(request, response);
     }
     //insert

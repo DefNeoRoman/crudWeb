@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../fragments/header.jsp"/>
 <div class="container">
@@ -12,6 +14,7 @@
     <table id="userDataTable" class="display" cellspacing="0" width="100%">
         <thead>
         <tr>
+            <th>id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Age</th>
@@ -21,33 +24,26 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-        </tr>
-        <tr>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-        </tr>
-        <tr>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-            <td>Information</td>
-        </tr>
+
+        <c:forEach items="${userList}" var="user">
+            <jsp:useBean id="user" type="entity.User"/>
+            <tr>
+                <th><c:out value="${user.id}"/></th>
+                <th><c:out value="${user.name}"/></th>
+                <th><c:out value="${user.email}"/></th>
+                <th><c:out value="${user.age}"/></th>
+                <th><c:out value="${user.createdDate}"/></th>
+
+                <th><a class="Edit" href="user?id=<c:out value='${user.id}'/>">Edit</a></th>
+
+                <th><a class="Delete" href="user?id=<c:out value='${user.id}'/>">Delete</a></th>
+            </tr>
+        </c:forEach>
         </tbody>
+
         <tfoot>
         <tr>
+            <th>id</th>
             <th>Name</th>
             <th>Email</th>
             <th>Age</th>

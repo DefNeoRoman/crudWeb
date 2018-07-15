@@ -4,7 +4,7 @@ import entity.User;
 import java.util.Random;
 import java.util.UUID;
 
-public class PupulateDB {
+public class PopulateDB {
     public static void main(String[] args) {
         Random random = new Random();
         try(UserDao dao = new UserDao()){
