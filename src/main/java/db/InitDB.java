@@ -11,10 +11,9 @@ public class InitDB {
     private static Connection connection = null;
 
     public static Connection getConnection() {
-        if (connection != null)
-            return connection;
-        else {
-            try {
+
+        try {
+            if (connection == null || connection.isClosed()) {
                 Properties prop = new Properties();
                 InputStream inputStream = InitDB.class.getClassLoader().getResourceAsStream("application.properties");
                 prop.load(inputStream);
@@ -24,11 +23,13 @@ public class InitDB {
                 String password = prop.getProperty("password");
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
-            } catch (ClassNotFoundException | SQLException | IOException e) {
-                e.printStackTrace();
-            }
-            return connection;
-        }
 
+                return connection;
+            }
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+        return connection;
     }
 }
+

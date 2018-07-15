@@ -69,7 +69,8 @@ public class UserDao implements AutoCloseable{
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
-        try (Connection connection = InitDB.getConnection();
+        connection = InitDB.getConnection();
+        try (
              Statement statement = connection.createStatement();
              ResultSet rs = statement.executeQuery("select * from users")
 
@@ -96,7 +97,7 @@ public class UserDao implements AutoCloseable{
         connection = InitDB.getConnection();
         try (
              PreparedStatement preparedStatement = connection.
-                     prepareStatement("select * from users where userid=?")
+                     prepareStatement("select * from users where id=?")
         ) {
             preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
@@ -115,6 +116,8 @@ public class UserDao implements AutoCloseable{
 
     @Override
     public void close() throws Exception {
-        connection.close();
-    }
+        if(connection != null){
+            connection.close();
+        }
+   }
 }

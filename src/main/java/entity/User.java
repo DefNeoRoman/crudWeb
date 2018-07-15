@@ -1,6 +1,9 @@
 package entity;
 
-import java.sql.Date;
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 import java.sql.Timestamp;
 
 public class User {
@@ -16,6 +19,10 @@ public class User {
     private Timestamp createdDate;
 
     public User() {
+       name = " ";
+       email = " ";
+       age = 0;
+       createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public User(String name, String email, int age) {
@@ -64,4 +71,5 @@ public class User {
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
     }
+
 }
