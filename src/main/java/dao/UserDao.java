@@ -42,7 +42,7 @@ public class UserDao implements AutoCloseable{
         connection = InitDB.getConnection();
         try (
              PreparedStatement preparedStatement = connection
-                     .prepareStatement("delete from users where userid=?")
+                     .prepareStatement("delete from users where id=?")
         ) {
 
             preparedStatement.setInt(1, userId);
@@ -58,7 +58,7 @@ public class UserDao implements AutoCloseable{
         try (
              PreparedStatement preparedStatement = connection
                      .prepareStatement(
-                             "update users set age=?,name=?,email=?,createdDate=? where userid=?")
+                             "update users set age=?,name=?,email=?,createdDate=? where id=?")
 
         ) {
             executeUpdate(preparedStatement, user);

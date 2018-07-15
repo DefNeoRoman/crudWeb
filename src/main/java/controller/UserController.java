@@ -4,12 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.UserDao;
 import entity.User;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -38,7 +36,6 @@ public class UserController extends HttpServlet {
             e.printStackTrace();
         }
     }
-
     //insert
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)  {
@@ -46,29 +43,21 @@ public class UserController extends HttpServlet {
             User user = new User();
             user.setName(request.getParameter("name"));
             user.setEmail(request.getParameter("email"));
-            user.setEmail(request.getParameter("age"));
+            user.setAge(Integer.parseInt(request.getParameter("age")));
             userDao.addUser(user);
-            request.getRequestDispatcher("jsp/user.jsp").forward(request, response);
-        } catch (Exception e) {
+         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
     // update
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPut(req, resp);
-    }
-
-    @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response)  {
         try(UserDao userDao = new UserDao()){
             int userId = Integer.parseInt(request.getParameter("userId"));
             userDao.deleteUser(userId);
-            request.getRequestDispatcher("jsp/user.jsp").forward(request, response);
-        } catch (Exception e) {
+         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

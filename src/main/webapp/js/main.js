@@ -3,9 +3,10 @@ function deleteUser(userId) {
         url: 'user?userId=' + userId,
         type: "DELETE",
         success: function () {
-            location.reload();
+
         }
     });
+    location.reload();
 }
 
 function call(form) {
