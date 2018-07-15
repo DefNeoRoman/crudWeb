@@ -1,6 +1,5 @@
 package db;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -17,7 +16,7 @@ public class InitDB {
         else {
             try {
                 Properties prop = new Properties();
-                InputStream inputStream = InitDB.class.getClassLoader().getResourceAsStream("/application.properties");
+                InputStream inputStream = InitDB.class.getClassLoader().getResourceAsStream("application.properties");
                 prop.load(inputStream);
                 String driver = prop.getProperty("driver");
                 String url = prop.getProperty("url");
@@ -25,13 +24,7 @@ public class InitDB {
                 String password = prop.getProperty("password");
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
+            } catch (ClassNotFoundException | SQLException | IOException e) {
                 e.printStackTrace();
             }
             return connection;

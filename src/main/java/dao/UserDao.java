@@ -8,38 +8,41 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserDao {
-
+public class UserDao implements AutoCloseable{
+    private Connection connection;
     public void addUser(User user) {
+        connection = InitDB.getConnection();
+        try (
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(
+                             "insert into users(age,name,email,createdDate) values (?, ?, ?, ? )")) {
 
-        try(Connection connection = InitDB.getConnection();
-            PreparedStatement preparedStatement = connection
-                .prepareStatement(
-            "insert into users(age,name,email,createdDate) values (?, ?, ?, ? )")) {
-
-                executeUpdate(preparedStatement,user);
+            executeUpdate(preparedStatement, user);
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public void executeUpdate(PreparedStatement preparedStatement, User user){
-        try{
 
-        int i = 1;
-        preparedStatement.setInt(i++, user.getAge());
-        preparedStatement.setString(i++, user.getName());
-        preparedStatement.setString(i++, user.getEmail());
-        preparedStatement.setDate(i++, new Date(System.currentTimeMillis()));
-        preparedStatement.executeUpdate();
-    } catch (SQLException e) {
-        e.printStackTrace();
+    public void executeUpdate(PreparedStatement preparedStatement, User user) {
+        try {
+
+            int i = 1;
+            preparedStatement.setInt(i++, user.getAge());
+            preparedStatement.setString(i++, user.getName());
+            preparedStatement.setString(i++, user.getEmail());
+            preparedStatement.setDate(i++, new Date(System.currentTimeMillis()));
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
-    }
+
     public void deleteUser(int userId) {
-        try(Connection connection = InitDB.getConnection();
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement("delete from users where userid=?")
+        connection = InitDB.getConnection();
+        try (
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement("delete from users where userid=?")
         ) {
 
             preparedStatement.setInt(1, userId);
@@ -51,13 +54,14 @@ public class UserDao {
     }
 
     public void updateUser(User user) {
-        try(Connection connection = InitDB.getConnection();
-            PreparedStatement preparedStatement = connection
-                    .prepareStatement(
-    "update users set age=?,name=?,email=?,createdDate=? where userid=?");
+        connection = InitDB.getConnection();
+        try (
+             PreparedStatement preparedStatement = connection
+                     .prepareStatement(
+                             "update users set age=?,name=?,email=?,createdDate=? where userid=?")
 
         ) {
-            executeUpdate(preparedStatement,user);
+            executeUpdate(preparedStatement, user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -65,9 +69,9 @@ public class UserDao {
 
     public List<User> getAllUsers() {
         List<User> users = new ArrayList<User>();
-        try(Connection connection = InitDB.getConnection();
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select * from users")
+        try (Connection connection = InitDB.getConnection();
+             Statement statement = connection.createStatement();
+             ResultSet rs = statement.executeQuery("select * from users")
 
         ) {
 
@@ -89,12 +93,12 @@ public class UserDao {
 
     public User getUserById(int userId) {
         User user = new User();
-        try(Connection connection = InitDB.getConnection();
-            PreparedStatement preparedStatement = connection.
-           prepareStatement("select * from users where userid=?")
-        )
-        {
-         preparedStatement.setInt(1, userId);
+        connection = InitDB.getConnection();
+        try (
+             PreparedStatement preparedStatement = connection.
+                     prepareStatement("select * from users where userid=?")
+        ) {
+            preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 user.setId(rs.getLong("id"));
@@ -107,5 +111,10 @@ public class UserDao {
             e.printStackTrace();
         }
         return user;
+    }
+
+    @Override
+    public void close() throws Exception {
+        connection.close();
     }
 }

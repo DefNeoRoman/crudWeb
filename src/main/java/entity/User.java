@@ -1,5 +1,6 @@
 package entity;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class User {
@@ -13,6 +14,16 @@ public class User {
     private int age;
 
     private Timestamp createdDate;
+
+    public User() {
+    }
+
+    public User(String name, String email, int age) {
+        this.name = name;
+        this.email = email;
+        this.age = age;
+        this.createdDate = new Timestamp(System.currentTimeMillis());
+    }
 
     public long getId() {
         return id;
