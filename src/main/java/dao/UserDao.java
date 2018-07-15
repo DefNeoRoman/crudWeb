@@ -52,30 +52,16 @@ public class UserDao implements AutoCloseable{
             e.printStackTrace();
         }
     }
-
-    public void updateUser(User user) {
-        connection = InitDB.getConnection();
-        try (
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(
-                             "update users set age=?,name=?,email=?,createdDate=? where id=?")
-
-        ) {
-            executeUpdate(preparedStatement, user);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<User> getAllUsers() {
+    public List<User> getAllUsers(int offSet,int limit) {
         List<User> users = new ArrayList<User>();
         connection = InitDB.getConnection();
+        int i=1;
         try (
-             Statement statement = connection.createStatement();
-             ResultSet rs = statement.executeQuery("select * from users")
-
+             PreparedStatement statement = connection.prepareStatement("select * from users limit ?, ?")
         ) {
-
+            statement.setInt(i++, offSet);
+            statement.setInt(i++, limit);
+            ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 User user = new User();
                 user.setId(rs.getLong("id"));

@@ -1,3 +1,4 @@
+
 function deleteUser(userId) {
     $.ajax({
         url: 'user?userId=' + userId,
@@ -23,6 +24,7 @@ function call(form) {
 function editUser(userId) {
     var form = $("#detailsForm");
     $.get('user?action=getUserByID&userId='+userId, function (data) {
+        console.log(data);
         $.each(JSON.parse(data), function (key, value) {
             form.find("input[name=" + key + "]").val(value);
         });
@@ -35,4 +37,5 @@ function add() {
     form.find(":input:not(.btn)").val("");
     $("#editRow").modal();
 }
+
 

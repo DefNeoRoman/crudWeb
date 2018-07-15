@@ -24,28 +24,28 @@
             <th>Delete</th>
         </tr>
         </thead>
-        <tbody>
+        <tbody id="arrayTable">
 
         <c:forEach items="${userList}" var="user">
-
             <jsp:useBean id="user" class="entity.User"/>
-            <tr>
-                <td><c:out value="${user.id}"/></td>
-                <td><c:out value="${user.name}"/></td>
-                <td><c:out value="${user.email}"/></td>
-                <td><c:out value="${user.age}"/></td>
-                <td><c:out value="${user.createdDate}"/></td>
-                <td>
+            <tr id = "${user.id}">
+                <td name="id"><c:out value="${user.id}"/></td>
+                <td name="name"><c:out value="${user.name}"/></td>
+                <td name="email"><c:out value="${user.email}"/></td>
+                <td name="age"><c:out value="${user.age}"/></td>
+                <td name="createdDate"><c:out value="${user.createdDate}"/></td>
+                <td name="id">
                     <a class="btn btn-primary" onclick="editUser(${user.id})">
                         Edit
                     </a>
                 </td>
-                <td>
+                <td name="id">
                     <a class="btn btn-primary" onclick="deleteUser(${user.id})">
                         Delete
                     </a>
                 </td>
             </tr>
+
         </c:forEach>
         </tbody>
 
@@ -61,6 +61,16 @@
         </tr>
         </tfoot>
     </table>
+
+
+    <a class="btn btn-primary" id="prevButton" href="user?action=getLimit&currentPage=${prev}&limit=${limit}">
+        prev
+    </a>
+   <span class="btn btn-info" id="currentPage"><c:out value="${currentPage}"/></span>
+
+    <a class="btn btn-primary" id="nextButton" href="user?action=getLimit&currentPage=${next}&limit=${limit}">
+        next
+    </a>
 </div>
 <div class="modal fade" id="editRow">
     <div class="modal-dialog">
@@ -72,9 +82,7 @@
             <div class="modal-body">
         <form class="form-horizontal" id="detailsForm" method="post" action="javascript:void(null);"
                       onsubmit="call(this)">
-            <%
-                User userById =(User) request.getAttribute("userById");
-            %>
+
 
 
                     <input type="hidden" id="id" name="id">
@@ -83,9 +91,7 @@
 
                         <div class="col-xs-9">
                  <input type="text" class="form-control" id="name" name="name" value="
-                 <%
-                 userById.getName();
-                 %>
+
 ">
                         </div>
 
@@ -93,9 +99,7 @@
 
                         <div class="col-xs-9">
                             <input type="email" class="form-control" id="email" name="email" value="
-                            <%
-                            userById.getEmail();
-                            %>
+
 ">
                         </div>
 
@@ -103,9 +107,7 @@
 
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="age" name="age" value="
-                            <%
-                            userById.getAge();
-                            %>
+
 ">
                         </div>
                     </div>
