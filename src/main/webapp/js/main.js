@@ -16,9 +16,10 @@ function call(form) {
         type: 'POST',
         url: 'user?' + msg,
         success: function (data) {
-            location.reload();
+
         }
     });
+    location.reload();
 }
 
 function editUser(userId) {

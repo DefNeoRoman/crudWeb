@@ -15,10 +15,11 @@ public class User {
     private Timestamp createdDate;
 
     public User() {
-       name = " ";
-       email = " ";
-       age = 0;
-       createdDate = new Timestamp(System.currentTimeMillis());
+        id = 0;
+        name = " ";
+        email = " ";
+        age = 0;
+        createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public User(String name, String email, int age) {
@@ -68,4 +69,7 @@ public class User {
         this.createdDate = createdDate;
     }
 
+    public boolean isNew() {
+        return id == 0;
+    }
 }

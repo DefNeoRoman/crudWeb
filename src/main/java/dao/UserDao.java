@@ -8,17 +8,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserDao implements AutoCloseable{
+public class UserDao {
     private Connection connection;
+
+    public UserDao() {
+        this.connection = InitDB.getConnection();
+    }
+
     public void addUser(User user) {
-        connection = InitDB.getConnection();
-        try (
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement(
-                             "insert into users(age,name,email,createdDate) values (?, ?, ?, ? )")) {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement("insert into users(age,name,email,createdDate) values (?, ?, ?, ? )")) {
             executeUpdate(preparedStatement, user);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void updateUser(User user) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET age=?, name=?, email=?, createdDate=? WHERE id =?;")) {
+            executeUpdate(preparedStatement, user);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -26,12 +33,14 @@ public class UserDao implements AutoCloseable{
 
     public void executeUpdate(PreparedStatement preparedStatement, User user) {
         try {
-
             int i = 1;
             preparedStatement.setInt(i++, user.getAge());
             preparedStatement.setString(i++, user.getName());
             preparedStatement.setString(i++, user.getEmail());
             preparedStatement.setDate(i++, new Date(System.currentTimeMillis()));
+            if (!user.isNew()) {
+                preparedStatement.setLong(i++, user.getId());
+            }
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -39,25 +48,18 @@ public class UserDao implements AutoCloseable{
     }
 
     public void deleteUser(int userId) {
-        connection = InitDB.getConnection();
-        try (
-             PreparedStatement preparedStatement = connection
-                     .prepareStatement("delete from users where id=?")
-        ) {
-
+        try (PreparedStatement preparedStatement = connection.prepareStatement("delete from users where id=?")) {
             preparedStatement.setInt(1, userId);
             preparedStatement.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-    public List<User> getAllUsers(int offSet,int limit) {
+
+    public List<User> getAllUsers(int offSet, int limit) {
         List<User> users = new ArrayList<User>();
-        connection = InitDB.getConnection();
-        int i=1;
-        try (
-             PreparedStatement statement = connection.prepareStatement("select * from users limit ?, ?")
+        int i = 1;
+        try (PreparedStatement statement = connection.prepareStatement("select * from users limit ?, ?")
         ) {
             statement.setInt(i++, offSet);
             statement.setInt(i++, limit);
@@ -74,20 +76,16 @@ public class UserDao implements AutoCloseable{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return users;
     }
 
     public User getUserById(int userId) {
-        User user = new User();
-        connection = InitDB.getConnection();
-        try (
-             PreparedStatement preparedStatement = connection.
-                     prepareStatement("select * from users where id=?")
-        ) {
+        User user = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement("select * from users where id=?")) {
             preparedStatement.setInt(1, userId);
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
+                user = new User();
                 user.setId(rs.getLong("id"));
                 user.setAge(rs.getInt("age"));
                 user.setName(rs.getString("name"));
@@ -99,11 +97,4 @@ public class UserDao implements AutoCloseable{
         }
         return user;
     }
-
-    @Override
-    public void close() throws Exception {
-        if(connection != null){
-            connection.close();
-        }
-   }
 }

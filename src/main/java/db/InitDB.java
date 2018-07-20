@@ -13,7 +13,7 @@ public class InitDB {
     public static Connection getConnection() {
 
         try {
-            if (connection == null || connection.isClosed()) {
+            if (connection == null) {
                 Properties prop = new Properties();
                 InputStream inputStream = InitDB.class.getClassLoader().getResourceAsStream("application.properties");
                 prop.load(inputStream);
