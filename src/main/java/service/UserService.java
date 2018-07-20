@@ -20,8 +20,6 @@ public class UserService {
         userDao = new UserDao();
     }
 
-
-
     public void getOneUser(HttpServletRequest request, HttpServletResponse response) {
         int userId = Integer.parseInt(request.getParameter("userId"));
         User oneUser = userDao.getUserById(userId);

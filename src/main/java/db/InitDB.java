@@ -11,7 +11,6 @@ public class InitDB {
     private static Connection connection = null;
 
     public static Connection getConnection() {
-
         try {
             if (connection == null) {
                 Properties prop = new Properties();
@@ -23,7 +22,6 @@ public class InitDB {
                 String password = prop.getProperty("password");
                 Class.forName(driver);
                 connection = DriverManager.getConnection(url, user, password);
-
                 return connection;
             }
         } catch (SQLException | ClassNotFoundException | IOException e) {

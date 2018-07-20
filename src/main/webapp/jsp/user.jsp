@@ -5,9 +5,7 @@
 <jsp:include page="../fragments/header.jsp"/>
 <div class="container">
     <a class="btn btn-primary" onclick="add()">
-
         Добавить
-
     </a>
     <%--tr - row--%>
     <%--th - заголовочная ячейка--%>
@@ -61,8 +59,6 @@
         </tr>
         </tfoot>
     </table>
-
-
     <a class="btn btn-primary" id="prevButton" href="user?action=getLimit&currentPage=${prev}&limit=${limit}">
         prev
     </a>
@@ -85,19 +81,14 @@
                     <input type="hidden" id="id" name="id">
                     <div class="form-group">
                         <label for="name" class="control-label col-xs-3">User name</label>
-
                         <div class="col-xs-9">
                  <input type="text" class="form-control" id="name" name="name" value="">
-                        </div>
-
+                       </div>
                         <label for="email" class="control-label col-xs-3">User email</label>
-
                         <div class="col-xs-9">
                             <input type="email" class="form-control" id="email" name="email" value="">
                         </div>
-
                         <label for="age" class="control-label col-xs-3">User age</label>
-
                         <div class="col-xs-9">
                             <input type="text" class="form-control" id="age" name="age" value="">
                         </div>

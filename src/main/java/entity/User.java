@@ -11,7 +11,7 @@ public class User {
     private String email;
 
     private int age;
-
+    // LocalDateTime
     private Timestamp createdDate;
 
     public User() {
