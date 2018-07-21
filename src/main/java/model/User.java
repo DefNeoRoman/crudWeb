@@ -1,25 +1,44 @@
 package model;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.math.BigInteger;
 import java.sql.Timestamp;
+@Entity
+@Table(name="users")
+public class User implements Serializable {
 
-public class User {
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="id", nullable=false)
+    private BigInteger id;
 
-    private long id;
+    @Column(name="age", length=20, nullable=true)
+    private int age;
 
+    @Column(name="name", length=20, nullable=true)
     private String name;
 
+    @Column(name="email", length=20, nullable=true)
     private String email;
 
-    private int age;
-    // LocalDateTime
+    @Column(name="createdDate", length=20, nullable=true)
     private Timestamp createdDate;
 
     public User() {
-        id = 0;
+        id = new BigInteger("0");
         name = " ";
         email = " ";
         age = 0;
         createdDate = new Timestamp(System.currentTimeMillis());
+    }
+
+    public User(int age, String name, String email) {
+        this.age = age;
+        this.name = name;
+        this.email = email;
+        this.createdDate = new Timestamp(System.currentTimeMillis());
     }
 
     public User(String name, String email, int age) {
@@ -29,11 +48,11 @@ public class User {
         this.createdDate = new Timestamp(System.currentTimeMillis());
     }
 
-    public long getId() {
+    public BigInteger getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(BigInteger id) {
         this.id = id;
     }
 
@@ -70,6 +89,11 @@ public class User {
     }
 
     public boolean isNew() {
-        return id == 0;
+        if(id == null ){
+            return true;
+        }
+        boolean b =  id.intValue() == 0;
+
+        return b;
     }
 }

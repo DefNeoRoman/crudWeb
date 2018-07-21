@@ -3,12 +3,13 @@ package dao;
 import db.InitDB;
 import model.User;
 
+import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class UserDaoJDBCImpl {
+public class UserDaoJDBCImpl implements UserDao {
     private Connection connection;
 
     public UserDaoJDBCImpl() {
@@ -39,7 +40,7 @@ public class UserDaoJDBCImpl {
             preparedStatement.setString(i++, user.getEmail());
             preparedStatement.setDate(i++, new Date(System.currentTimeMillis()));
             if (!user.isNew()) {
-                preparedStatement.setLong(i++, user.getId());
+                preparedStatement.setLong(i++, user.getId().intValue());
             }
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -66,7 +67,7 @@ public class UserDaoJDBCImpl {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setId(rs.getLong("id"));
+                user.setId(BigInteger.valueOf(rs.getLong("id")));
                 user.setAge(rs.getInt("age"));
                 user.setName((rs.getString("name")));
                 user.setEmail(rs.getString("email"));
@@ -86,7 +87,7 @@ public class UserDaoJDBCImpl {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 user = new User();
-                user.setId(rs.getLong("id"));
+                user.setId(BigInteger.valueOf(rs.getLong("id")));
                 user.setAge(rs.getInt("age"));
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));
@@ -104,9 +105,7 @@ public class UserDaoJDBCImpl {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 count = rs.getInt(1);
-
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }

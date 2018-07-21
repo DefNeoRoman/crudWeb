@@ -19,7 +19,9 @@ public class UserDeleteController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int userId = Integer.parseInt(req.getParameter("userId"));
+        String currentPage = req.getParameter("currentPage");
+        String limit = req.getParameter("limit");
         service.deleteUser(userId);
-        resp.sendRedirect("/user");
+        resp.sendRedirect("/user?action=getLimit&currentPage="+currentPage+"&limit="+limit);
     }
 }

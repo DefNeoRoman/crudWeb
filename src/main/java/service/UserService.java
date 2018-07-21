@@ -1,5 +1,7 @@
 package service;
 
+import dao.UserDao;
+import dao.UserDaoHibernateImpl;
 import dao.UserDaoJDBCImpl;
 import model.User;
 
@@ -7,10 +9,10 @@ import java.util.List;
 
 public class UserService {
 
-    private UserDaoJDBCImpl userDaoJDBCImpl;
+    private UserDao userDaoJDBCImpl;
 
     public UserService() {
-        userDaoJDBCImpl = new UserDaoJDBCImpl();
+        userDaoJDBCImpl = new UserDaoHibernateImpl();
     }
 
     public List<User> getAllUsers(int offset, int limit) {

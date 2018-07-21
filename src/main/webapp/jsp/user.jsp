@@ -40,6 +40,8 @@
                 </td>
                 <td name="id">
                     <form method="post" action="user/delete?userId=${user.id}">
+                        <input type="hidden" name="currentPage" value="${currentPage}">
+                        <input type="hidden" name="limit" value="${limit}">
                         <input class="btn btn-primary" type="submit" value="Delete">
                     </form>
                 </td>

@@ -11,4 +11,4 @@ CREATE TABLE users
     name VARCHAR(90) NOT NULL,
     email VARCHAR(90) NOT NULL,
     createdDate TIMESTAMP NOT NULL
-);
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

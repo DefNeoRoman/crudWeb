@@ -67,10 +67,10 @@ public class UserController extends HttpServlet {
     }
 
     private void makeDefaultResponse(HttpServletRequest request, HttpServletResponse response) {
-        List<User> allUsers = new ArrayList<>();
+        List<User> allUsers;
         int offset = 0;
         int limit = 10;
-        allUsers = service.getAllUsers(offset, limit);
+        allUsers = (List<User>)service.getAllUsers(offset, limit);
         request.setAttribute("userList", allUsers);
         request.setAttribute("currentPage", FIRST_LAUNCH);
         int next = FIRST_LAUNCH + 1;
