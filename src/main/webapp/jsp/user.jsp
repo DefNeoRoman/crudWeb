@@ -1,10 +1,10 @@
-<%@ page import="entity.User" %>
+<%@ page import="model.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../fragments/header.jsp"/>
 <div class="container">
-    <a class="btn btn-primary" onclick="add()">
+    <a href="user/edit?userId=0" class="btn btn-primary">
         Добавить
     </a>
     <%--tr - row--%>
@@ -25,7 +25,7 @@
         <tbody id="arrayTable">
 
         <c:forEach items="${userList}" var="user">
-            <jsp:useBean id="user" class="entity.User"/>
+            <jsp:useBean id="user" class="model.User"/>
             <tr id = "${user.id}">
                 <td name="id"><c:out value="${user.id}"/></td>
                 <td name="name"><c:out value="${user.name}"/></td>
@@ -33,14 +33,15 @@
                 <td name="age"><c:out value="${user.age}"/></td>
                 <td name="createdDate"><c:out value="${user.createdDate}"/></td>
                 <td name="id">
-                    <a class="btn btn-primary" onclick="editUser(${user.id})">
-                        Edit
-                    </a>
+                    <form method="get" action="user/edit">
+                        <input type="hidden" name="userId" value="${user.id}">
+                        <input class="btn btn-primary" type="submit" value="Edit">
+                    </form>
                 </td>
                 <td name="id">
-                    <a class="btn btn-primary" onclick="deleteUser(${user.id})">
-                        Delete
-                    </a>
+                    <form method="post" action="user/delete?userId=${user.id}">
+                        <input class="btn btn-primary" type="submit" value="Delete">
+                    </form>
                 </td>
             </tr>
 
@@ -59,6 +60,9 @@
         </tr>
         </tfoot>
     </table>
+    <a class="btn btn-primary" id="homeButton" href="user">
+        home
+    </a>
     <a class="btn btn-primary" id="prevButton" href="user?action=getLimit&currentPage=${prev}&limit=${limit}">
         prev
     </a>
@@ -66,6 +70,9 @@
 
     <a class="btn btn-primary" id="nextButton" href="user?action=getLimit&currentPage=${next}&limit=${limit}">
         next
+    </a>
+    <a class="btn btn-primary" id="endButton" href="user?action=getLimit&currentPage=lastPage&limit=${limit}">
+        end
     </a>
 </div>
 <div class="modal fade" id="editRow">
