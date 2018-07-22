@@ -1,6 +1,6 @@
 package controller;
 
-import app.AppServiceManager;
+import app.AppManager;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 public class UserDeleteController extends HttpServlet {
     private UserService service;
     public UserDeleteController() {
-        service = AppServiceManager.getUserHibernateService();
+        service = AppManager.getService();
     }
 
     @Override

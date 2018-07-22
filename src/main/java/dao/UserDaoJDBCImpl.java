@@ -40,7 +40,7 @@ public class UserDaoJDBCImpl implements UserDao {
             preparedStatement.setString(i++, user.getEmail());
             preparedStatement.setDate(i++, new Date(System.currentTimeMillis()));
             if (!user.isNew()) {
-                preparedStatement.setLong(i++, user.getId().intValue());
+                preparedStatement.setLong(i++, user.getId());
             }
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -67,7 +67,7 @@ public class UserDaoJDBCImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 User user = new User();
-                user.setId(BigInteger.valueOf(rs.getLong("id")));
+                user.setId(rs.getLong("id"));
                 user.setAge(rs.getInt("age"));
                 user.setName((rs.getString("name")));
                 user.setEmail(rs.getString("email"));
@@ -87,7 +87,7 @@ public class UserDaoJDBCImpl implements UserDao {
             ResultSet rs = preparedStatement.executeQuery();
             if (rs.next()) {
                 user = new User();
-                user.setId(BigInteger.valueOf(rs.getLong("id")));
+                user.setId(rs.getLong("id"));
                 user.setAge(rs.getInt("age"));
                 user.setName(rs.getString("name"));
                 user.setEmail(rs.getString("email"));

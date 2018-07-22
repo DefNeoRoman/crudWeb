@@ -10,11 +10,13 @@ import java.math.BigInteger;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-    public Session getSession(){
+
+    public Session getSession() {
         Session session1 = HibernateUtil.getSessionJavaConfigFactory().openSession();
         session1.beginTransaction();
         return session1;
     }
+
     @Override
     public void addUser(User user) {
         Session session = getSession();
@@ -35,7 +37,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public void deleteUser(int userId) {
         Session session = getSession();
-        User o = (User) session.get(User.class, BigInteger.valueOf(userId));
+        User o = (User) session.get(User.class, Long.valueOf(userId));
         session.delete(o);
         session.getTransaction().commit();
         session.close();
@@ -56,7 +58,7 @@ public class UserDaoHibernateImpl implements UserDao {
     @Override
     public User getUserById(int userId) {
         Session session = getSession();
-        User o = (User) session.get(User.class, BigInteger.valueOf(userId));
+        User o = (User) session.get(User.class, Long.valueOf(userId));
         session.close();
         return o;
     }
@@ -66,7 +68,6 @@ public class UserDaoHibernateImpl implements UserDao {
         Session session = getSession();
         SQLQuery sqlQuery = session.createSQLQuery("SELECT COUNT(*) from users");
         BigInteger count = (BigInteger) sqlQuery.list().get(0);
-        session.close();
         return getAllUsers(count.intValue() - limit, limit);
     }
 }

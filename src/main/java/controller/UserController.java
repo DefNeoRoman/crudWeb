@@ -1,6 +1,6 @@
 package controller;
 
-import app.AppServiceManager;
+import app.AppManager;
 import model.User;
 import service.UserService;
 
@@ -19,7 +19,7 @@ public class UserController extends HttpServlet {
     private UserService service;
 
     public UserController() {
-        service = AppServiceManager.getUserHibernateService();
+        service = AppManager.getService();
     }
 
     @Override

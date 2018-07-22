@@ -1,6 +1,7 @@
 package service;
 
 import dao.UserDao;
+import dao.UserDaoEntityManagerImpl;
 import model.User;
 
 import java.util.List;
@@ -9,9 +10,10 @@ public class UserService {
 
     private UserDao userDao;
 
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
+    public UserService() {
+        userDao = new UserDaoEntityManagerImpl();
     }
+
 
     public List<User> getAllUsers(int offset, int limit) {
         return userDao.getAllUsers(offset, limit);

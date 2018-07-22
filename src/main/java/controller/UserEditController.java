@@ -1,6 +1,6 @@
 package controller;
 
-import app.AppServiceManager;
+import app.AppManager;
 import model.User;
 import service.UserService;
 
@@ -15,14 +15,15 @@ import java.io.IOException;
 public class UserEditController extends HttpServlet {
     private UserService service;
     public UserEditController() {
-        service = AppServiceManager.getUserHibernateService();
+        service = AppManager.getService();
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String userId = req.getParameter("userId");
         User user;
-        if(userId.equals("0")){
+
+        if("0".equals(userId)){
             user = new User();
         }else{
             user = service.getUserById(userId);
