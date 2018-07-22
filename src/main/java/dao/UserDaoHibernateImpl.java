@@ -10,65 +10,63 @@ import java.math.BigInteger;
 import java.util.List;
 
 public class UserDaoHibernateImpl implements UserDao {
-
+    public Session getSession(){
+        Session session1 = HibernateUtil.getSessionJavaConfigFactory().openSession();
+        session1.beginTransaction();
+        return session1;
+    }
     @Override
     public void addUser(User user) {
-        Session session1 = HibernateUtil.getSessionFactory().openSession();
-        session1.beginTransaction();
-        session1.save(user);
-        session1.getTransaction().commit();
-        session1.close();
+        Session session = getSession();
+        session.save(user);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public void updateUser(User user) {
-        Session session1 = HibernateUtil.getSessionFactory().openSession();
-        session1.beginTransaction();
-        session1.update(user);
-        session1.getTransaction().commit();
-        session1.close();
+        Session session = getSession();
+        session.update(user);
+        session.getTransaction().commit();
+        session.close();
     }
 
 
     @Override
     public void deleteUser(int userId) {
-        Session session1 = HibernateUtil.getSessionFactory().openSession();
-        session1.beginTransaction();
-        User o = (User) session1.get(User.class, BigInteger.valueOf(userId));
-        session1.delete(o);
-        session1.getTransaction().commit();
-        session1.close();
+        Session session = getSession();
+        User o = (User) session.get(User.class, BigInteger.valueOf(userId));
+        session.delete(o);
+        session.getTransaction().commit();
+        session.close();
     }
 
     @Override
     public List<User> getAllUsers(int offSet, int limit) {
-        Session session1 = HibernateUtil.getSessionFactory().openSession();
-        session1.beginTransaction();
-        Query query = session1.createQuery("from User");
+        Session session = getSession();
+        Query query = session.createQuery("from User");
         query.setFirstResult(offSet);
         query.setMaxResults(limit);
         @SuppressWarnings("unchecked")
         List<User> list = (List<User>) query.list();
-        session1.close();
+        session.close();
         return list;
     }
 
     @Override
     public User getUserById(int userId) {
-        Session session1 = HibernateUtil.getSessionFactory().openSession();
-        session1.beginTransaction();
-        User o = (User) session1.get(User.class, BigInteger.valueOf(userId));
-        session1.close();
+        Session session = getSession();
+        User o = (User) session.get(User.class, BigInteger.valueOf(userId));
+        session.close();
         return o;
     }
 
     @Override
     public List<User> getLastUsers(int limit) {
-        Session session1 = HibernateUtil.getSessionFactory().openSession();
-        session1.beginTransaction();
-        SQLQuery sqlQuery = session1.createSQLQuery("SELECT COUNT(*) from users");
+        Session session = getSession();
+        SQLQuery sqlQuery = session.createSQLQuery("SELECT COUNT(*) from users");
         BigInteger count = (BigInteger) sqlQuery.list().get(0);
-        session1.close();
+        session.close();
         return getAllUsers(count.intValue() - limit, limit);
     }
 }

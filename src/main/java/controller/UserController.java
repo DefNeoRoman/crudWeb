@@ -25,7 +25,7 @@ public class UserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
         if (request.getParameterNames().hasMoreElements()) {
-            if (request.getParameter("limit").equals("0")) {
+           if (request.getParameter("limit").equals("0")) {
                 makeDefaultResponse(request, response);
             } else {
                 getUsersByLimit(request, response);

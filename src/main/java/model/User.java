@@ -14,7 +14,7 @@ public class User implements Serializable {
     @Column(name="id", nullable=false)
     private BigInteger id;
 
-    @Column(name="age", length=20, nullable=true)
+    @Column(name="age", length=200, nullable=true)
     private int age;
 
     @Column(name="name", length=20, nullable=true)

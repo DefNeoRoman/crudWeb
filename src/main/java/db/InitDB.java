@@ -9,13 +9,11 @@ import java.util.Properties;
 
 public class InitDB {
     private static Connection connection = null;
-
+    private static Properties properties = new Properties();
     public static Connection getConnection() {
         try {
             if (connection == null) {
-                Properties prop = new Properties();
-                InputStream inputStream = InitDB.class.getClassLoader().getResourceAsStream("application.properties");
-                prop.load(inputStream);
+                Properties prop = getProperties();
                 String driver = prop.getProperty("driver");
                 String url = prop.getProperty("url");
                 String user = prop.getProperty("user");
@@ -24,10 +22,20 @@ public class InitDB {
                 connection = DriverManager.getConnection(url, user, password);
                 return connection;
             }
-        } catch (SQLException | ClassNotFoundException | IOException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return connection;
+    }
+
+    public static Properties getProperties() {
+        InputStream inputStream = InitDB.class.getClassLoader().getResourceAsStream("application.properties");
+        try {
+            properties.load(inputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties;
     }
 }
 
