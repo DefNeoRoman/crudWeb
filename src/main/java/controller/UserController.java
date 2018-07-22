@@ -1,6 +1,6 @@
 package controller;
 
-import app.App;
+import app.AppServiceManager;
 import model.User;
 import service.UserService;
 
@@ -19,7 +19,7 @@ public class UserController extends HttpServlet {
     private UserService service;
 
     public UserController() {
-        service = App.getUserService();
+        service = AppServiceManager.getUserHibernateService();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class UserController extends HttpServlet {
     private void makeDefaultResponse(HttpServletRequest request, HttpServletResponse response) {
         List<User> allUsers;
         int offset = 0;
-        int limit = 10;
+        int limit = 7;
         allUsers = (List<User>)service.getAllUsers(offset, limit);
         request.setAttribute("userList", allUsers);
         request.setAttribute("currentPage", FIRST_LAUNCH);

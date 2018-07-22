@@ -19,7 +19,6 @@ public class HibernateTest {
         session.beginTransaction();
         session.save(user);
         session.getTransaction().commit();
-        System.out.println("Employee ID="+user.getId());
         sessionFactory.close();
     }
 

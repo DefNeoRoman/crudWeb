@@ -1,6 +1,6 @@
 package controller;
 
-import app.App;
+import app.AppServiceManager;
 import model.User;
 import service.UserService;
 
@@ -15,7 +15,7 @@ import java.io.IOException;
 public class UserEditController extends HttpServlet {
     private UserService service;
     public UserEditController() {
-        service = App.getUserService();
+        service = AppServiceManager.getUserHibernateService();
     }
 
     @Override
