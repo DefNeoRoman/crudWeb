@@ -1,9 +1,8 @@
 package dao;
 
-import db.InitDB;
+import db.DbHelper;
 import model.User;
 
-import java.math.BigInteger;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +12,7 @@ public class UserDaoJDBCImpl implements UserDao {
     private Connection connection;
 
     public UserDaoJDBCImpl() {
-        this.connection = InitDB.getConnection();
+        this.connection = DbHelper.getConnection();
     }
 
     public void addUser(User user) {

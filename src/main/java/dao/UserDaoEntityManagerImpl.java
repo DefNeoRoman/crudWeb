@@ -54,7 +54,7 @@ public class UserDaoEntityManagerImpl implements UserDao {
 
     @Override
     public User getUserById(int userId) {
-        return em.find(User.class,userId);
+        return em.find(User.class,Long.valueOf(userId));
     }
 
     @Override

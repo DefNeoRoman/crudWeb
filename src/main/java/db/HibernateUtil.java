@@ -12,14 +12,13 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class HibernateUtil {
-    private static Properties prop = InitDB.getProperties();
+    private static Properties prop = DbHelper.getProperties();
     private static SessionFactory sessionJavaConfigFactory;
     private static  EntityManagerFactory emf = Persistence.createEntityManagerFactory("model");
     private static SessionFactory buildSessionJavaConfigFactory() {
         try {
             Configuration configuration = new Configuration();
             Properties props = new Properties();
-            // дописать hbm ddl auto create-drop
             props.put("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
             props.put("hibernate.connection.driver_class",prop.getProperty("driver"));
             props.put("hibernate.connection.url",prop.get("url"));

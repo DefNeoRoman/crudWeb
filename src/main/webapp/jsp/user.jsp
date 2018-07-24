@@ -4,9 +4,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../fragments/header.jsp"/>
 <div class="container">
-    <a href="user/edit?userId=0" class="btn btn-primary">
-        Добавить
-    </a>
+    <form method="get" action="user/create">
+        <input type="hidden" name="currentPage" value="${currentPage}">
+        <input type="hidden" name="limit" value="${limit}">
+        <input class="btn btn-primary" type="submit" value="Add">
+    </form>
+
     <%--tr - row--%>
     <%--th - заголовочная ячейка--%>
     <%--td - Обычная ячейка--%>
@@ -35,6 +38,8 @@
                 <td name="id">
                     <form method="get" action="user/edit">
                         <input type="hidden" name="userId" value="${user.id}">
+                        <input type="hidden" name="currentPage" value="${currentPage}">
+                        <input type="hidden" name="limit" value="${limit}">
                         <input class="btn btn-primary" type="submit" value="Edit">
                     </form>
                 </td>

@@ -7,7 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
-public class InitDB {
+public class DbHelper {
     private static Connection connection = null;
     private static Properties properties = new Properties();
     public static Connection getConnection() {
@@ -29,7 +29,7 @@ public class InitDB {
     }
 
     public static Properties getProperties() {
-        InputStream inputStream = InitDB.class.getClassLoader().getResourceAsStream("application.properties");
+        InputStream inputStream = DbHelper.class.getClassLoader().getResourceAsStream("application.properties");
         try {
             properties.load(inputStream);
         } catch (IOException e) {

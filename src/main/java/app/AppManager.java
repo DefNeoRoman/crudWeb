@@ -1,9 +1,10 @@
 package app;
 
 import service.UserService;
+import service.UserServiceImpl;
 
 public class AppManager {
-    private static UserService service = new UserService();
+    private static UserService service = new UserServiceImpl();
 
     public static void main(String[] args) {
         // запуск через томкат

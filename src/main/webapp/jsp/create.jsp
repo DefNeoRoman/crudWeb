@@ -5,9 +5,9 @@
 
 <div class="container">
     <a href="user" class="btn btn-primary">
-       Back
+        Back
     </a>
-    <form method="post" action="user/edit">
+    <form method="post" action="user/create">
         <input type="hidden" name="currentPage" value="${currentPage}">
         <input type="hidden" name="limit" value="${limit}">
         <input type="hidden" id="id" name="id" value="${user.id}">
