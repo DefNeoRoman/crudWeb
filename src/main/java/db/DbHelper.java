@@ -8,6 +8,9 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 public class DbHelper {
+    private DbHelper() {
+    }
+
     private static Connection connection = null;
     private static Properties properties = new Properties();
     public static Connection getConnection() {
