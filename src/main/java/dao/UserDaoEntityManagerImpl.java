@@ -37,6 +37,7 @@ public class UserDaoEntityManagerImpl implements UserDao {
 
     @Override
     public void deleteUser(int userId) {
+
         User user = em.find(User.class, Long.valueOf(userId));
         em.getTransaction().begin();
         em.remove(user);
@@ -54,6 +55,7 @@ public class UserDaoEntityManagerImpl implements UserDao {
 
     @Override
     public User getUserById(int userId) {
+        
         return em.find(User.class,Long.valueOf(userId));
     }
 

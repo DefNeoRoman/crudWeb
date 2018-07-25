@@ -117,8 +117,6 @@ public class User implements Serializable {
 
     public boolean isNew() {
 
-        boolean b =  id == 0;
-
-        return b;
+        return id == 0;
     }
 }

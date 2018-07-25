@@ -25,7 +25,7 @@ public class HibernateUtil {
             props.put("hibernate.connection.username", prop.get("user"));
             props.put("hibernate.connection.password", prop.get("password"));
             props.put("hibernate.current_session_context_class", "thread");
-            props.put("hibernate.hbm2ddl.auto", "create");
+            props.put("hibernate.hbm2ddl.auto", "create-drop");
             props.put("hibernate.default_schema", "crudApplication");
             props.put("hibernate.show_sql", "true");
             configuration.setProperties(props);

@@ -12,9 +12,13 @@ public class UserDaoFactory {
         try {
             properties.load(inputStream);
             String configuration = properties.getProperty("configuration");
+            // Переделать с енумом
             if(configuration.equals("jdbc")){
+
                 userDao = new UserDaoJDBCImpl();
+
             }else if(configuration.equals("entityManager")){
+
                 userDao = new UserDaoEntityManagerImpl();
             }
         } catch (IOException e) {

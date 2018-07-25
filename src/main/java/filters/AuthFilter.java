@@ -8,7 +8,7 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import java.io.IOException;
 
-@WebFilter("/AuthFilter")
+@WebFilter("/home")
 public class AuthFilter implements Filter{
     Logger logger = LoggerFactory.getLogger(AuthFilter.class);
     @Override
@@ -24,6 +24,6 @@ public class AuthFilter implements Filter{
 
     @Override
     public void destroy() {
-
+        logger.info("Auth filter destroy");
     }
 }

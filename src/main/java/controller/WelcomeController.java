@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/")
+@WebServlet("/home")
 public class WelcomeController extends HttpServlet {
 
     @Override
@@ -16,8 +16,4 @@ public class WelcomeController extends HttpServlet {
         request.getRequestDispatcher("jsp/login.jsp").forward(request, response);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
-    }
-}
+  }

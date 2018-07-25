@@ -1,14 +1,15 @@
 package service;
 
 import dao.UserDao;
-import dao.UserDaoEntityManagerImpl;
 import dao.UserDaoFactory;
 import model.User;
 
 import java.util.List;
 
 public class UserServiceImpl implements UserService {
+
     private static final UserService INSTANCE = new UserServiceImpl();
+
     private UserDao userDao;
 
     private UserServiceImpl() {
@@ -41,6 +42,7 @@ public class UserServiceImpl implements UserService {
 
 
     public static UserService getInstance() {
+
         return INSTANCE;
     }
 
