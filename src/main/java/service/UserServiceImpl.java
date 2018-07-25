@@ -12,6 +12,7 @@ public class UserServiceImpl implements UserService {
     private UserDao userDao;
 
     private UserServiceImpl() {
+
         userDao = UserDaoFactory.getConfiguredDao();
     }
 

@@ -21,6 +21,7 @@
             <th>Email</th>
             <th>Age</th>
             <th>Register Date</th>
+            <th>Role</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>
@@ -35,6 +36,7 @@
                 <td name="email"><c:out value="${user.email}"/></td>
                 <td name="age"><c:out value="${user.age}"/></td>
                 <td name="createdDate"><c:out value="${user.createdDate}"/></td>
+                <td name="role"><c:out value="${user.role}"/></td>
                 <td name="id">
                     <form method="get" action="user/edit">
                         <input type="hidden" name="userId" value="${user.id}">
@@ -62,6 +64,7 @@
             <th>Email</th>
             <th>Age</th>
             <th>Register Date</th>
+            <th>Role</th>
             <th>Edit</th>
             <th>Delete</th>
         </tr>

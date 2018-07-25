@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", nullable=false)
@@ -24,11 +24,19 @@ public class User implements Serializable {
     @Column(name="createdDate", length=2000)
     private Timestamp createdDate;
 
+    @Column(name="role", length=2000)
+    private String role;
+
+    @Column(name="password", length=2000)
+    private String password;
+
     public User() {
         id = 0;
         name = " ";
         email = " ";
         age = 0;
+        role= "USER";
+        password = "user";
         createdDate = new Timestamp(System.currentTimeMillis());
     }
 
@@ -36,6 +44,9 @@ public class User implements Serializable {
         this.age = age;
         this.name = name;
         this.email = email;
+        this.role= "USER";
+        password = "user";
+
         this.createdDate = new Timestamp(System.currentTimeMillis());
     }
 
@@ -43,6 +54,8 @@ public class User implements Serializable {
         this.name = name;
         this.email = email;
         this.age = age;
+        this.role = "USER";
+        password = "user";
         this.createdDate = new Timestamp(System.currentTimeMillis());
     }
 
@@ -84,6 +97,22 @@ public class User implements Serializable {
 
     public void setCreatedDate(Timestamp createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public boolean isNew() {
