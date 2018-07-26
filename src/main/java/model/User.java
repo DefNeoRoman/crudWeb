@@ -46,7 +46,6 @@ public class User implements Serializable {
         this.email = email;
         this.role= "USER";
         password = "user";
-
         this.createdDate = new Timestamp(System.currentTimeMillis());
     }
 

@@ -9,7 +9,6 @@
         <input type="hidden" name="limit" value="${limit}">
         <input class="btn btn-primary" type="submit" value="Add">
     </form>
-
     <%--tr - row--%>
     <%--th - заголовочная ячейка--%>
     <%--td - Обычная ячейка--%>
@@ -85,5 +84,4 @@
         end
     </a>
 </div>
-
 <jsp:include page="../fragments/footer.jsp"/>
