@@ -11,6 +11,6 @@ import java.io.IOException;
 public class UserTaskController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("jsp/success.jsp").forward(req, resp);
+        req.getRequestDispatcher("jsp/successUserTask.jsp").forward(req, resp);
     }
 }

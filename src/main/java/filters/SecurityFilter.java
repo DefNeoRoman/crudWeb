@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebFilter("/*")
+@WebFilter("/login")
 public class SecurityFilter implements Filter {
 
     UserAccountService userAccountService;
@@ -30,39 +30,25 @@ public class SecurityFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
-        String servletPath = request.getServletPath();
-        User loginedUser = getLoginedUser(request.getSession());
-        if (servletPath.equals("/login")) {
-            chain.doFilter(request, response);
-            return;
-        }
         HttpServletRequest wrapRequest = request;
+        HttpSession session = request.getSession();
+        User loginedUser = (User) session.getAttribute("loginedUser");
         if (loginedUser != null) {
             String userName = loginedUser.getName();
             String roles = loginedUser.getRole();
             wrapRequest = new UserRoleRequestWrapper(userName, roles, request);
-        }
-
-        if (userAccountService.isSecurityPage(request)) {
-           if (loginedUser == null) {
-
-                String requestUri = request.getRequestURI();
-                int redirectId = userAccountService.storeRedirectAfterLoginUrl(requestUri);
-                response.sendRedirect(wrapRequest.getContextPath() + "/login?redirectId=" + redirectId);
-                return;
-            }
             boolean hasPermission = userAccountService.hasPermission(wrapRequest);
-            if (!hasPermission) {
-          RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("jsp/accessDenied.jsp");
+            if (hasPermission) {
+                chain.doFilter(wrapRequest, response);
+            } else {
+                ServletContext servletContext = request.getServletContext();
+                RequestDispatcher dispatcher = servletContext.getRequestDispatcher("jsp/accessDenied.jsp");
                 dispatcher.forward(request, response);
                 return;
             }
+        } else {
+            chain.doFilter(wrapRequest, response);
         }
-
-        chain.doFilter(wrapRequest, response);
-    }
-    public  User getLoginedUser(HttpSession session) {
-        return (User) session.getAttribute("loginedUser");
     }
 
     @Override

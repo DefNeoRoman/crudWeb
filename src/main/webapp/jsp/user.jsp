@@ -4,6 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:include page="../fragments/header.jsp"/>
 <div class="container">
+
     <form method="get" action="user/create">
         <input type="hidden" name="currentPage" value="${currentPage}">
         <input type="hidden" name="limit" value="${limit}">

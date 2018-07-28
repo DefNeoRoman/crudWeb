@@ -5,6 +5,7 @@
     <h2>login or register</h2>
     <div class="container">
         <form method="post" action="login">
+            <input type="hidden" name="redirectId" value="${param.redirectId}" />
             <input type="hidden" id="id" name="id" value="${user.id}">
             <div class="form-group">
                 <label for="name" class="control-label col-xs-3">User name</label>

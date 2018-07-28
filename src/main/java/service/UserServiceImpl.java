@@ -39,7 +39,13 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int userId) {
         userDao.deleteUser(userId);
     }
-
+    public User findUserByNameAndPassword(String userName, String password) {
+        User u = userDao.getUserByName(userName);
+        if (u != null && u.getPassword().equals(password)) {
+            return u;
+        }
+        return null;
+    }
 
     public static UserService getInstance() {
 

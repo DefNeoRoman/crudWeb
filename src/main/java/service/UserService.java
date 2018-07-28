@@ -12,5 +12,6 @@ public interface UserService {
      void addUser(User user);
      void updateUser(User user);
      void deleteUser(int userId);
+     User findUserByNameAndPassword(String userName, String password);
 
 }

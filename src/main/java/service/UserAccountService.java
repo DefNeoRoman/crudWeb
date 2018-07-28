@@ -1,9 +1,5 @@
 package service;
 
-import dao.UserDao;
-import dao.UserDaoFactory;
-import model.User;
-
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 import javax.servlet.http.HttpServletRequest;
@@ -11,35 +7,26 @@ import java.util.*;
 
 public class UserAccountService {
     private static UserAccountService INSTANCE = new UserAccountService();
-    private static final String ROLE_USER = "USER";
-    private static final String ROLE_ADMIN = "ADMIN";
-    private static final Map<String, List<String>> mapConfig = new HashMap<String, List<String>>();
-    private static int REDIRECT_ID = 0;
-    private static final Map<Integer, String> id_uri_map = new HashMap<Integer, String>();
-    private static final Map<String, Integer> uri_id_map = new HashMap<String, Integer>();
-    private UserDao userDao;
+    private final String ROLE_USER = "USER";
+    private final String ROLE_ADMIN = "ADMIN";
+    private final Map<String, List<String>> mapConfig = new HashMap<String, List<String>>();
+    private int REDIRECT_ID = 0;
+    private final Map<Integer, String> id_uri_map = new HashMap<Integer, String>();
+    private final Map<String, Integer> uri_id_map = new HashMap<String, Integer>();
 
-    static {
+    private UserAccountService() {
         List<String> userPatterns = new ArrayList<String>();
         userPatterns.add("/task/user");
+        userPatterns.add("/login");
         mapConfig.put(ROLE_USER, userPatterns);
         List<String> adminPatterns = new ArrayList<String>();
         adminPatterns.add("/task/admin");
+        adminPatterns.add("/login");
         adminPatterns.add("/user/*");
         mapConfig.put(ROLE_ADMIN, adminPatterns);
     }
 
-    private UserAccountService() {
-        this.userDao = UserDaoFactory.getConfiguredDao();
-    }
 
-    public User findUserByNameAndPassword(String userName, String password) {
-        User u = userDao.getUserByName(userName);
-        if (u != null && u.getPassword().equals(password)) {
-            return u;
-        }
-        return null;
-    }
 
     public int storeRedirectAfterLoginUrl(String requestUri) {
         Integer id = uri_id_map.get(requestUri);
@@ -69,9 +56,7 @@ public class UserAccountService {
     }
     public boolean isSecurityPage(HttpServletRequest request) {
         String urlPattern = getUrlPattern(request);
-
         Set<String> roles = getAllAppRoles();
-
         for (String role : roles) {
             List<String> urlPatterns = getUrlPatternsForRole(role);
             if (urlPatterns != null && urlPatterns.contains(urlPattern)) {
@@ -83,7 +68,6 @@ public class UserAccountService {
 
     public  boolean hasPermission(HttpServletRequest request) {
         String urlPattern = getUrlPattern(request);
-
         Set<String> allRoles = getAllAppRoles();
 
         for (String role : allRoles) {
