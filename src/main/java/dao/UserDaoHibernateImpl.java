@@ -26,6 +26,14 @@ public class UserDaoHibernateImpl implements UserDao {
     }
 
     @Override
+    public User getUserByName(String name) {
+        Session session = getSession();
+        User o = (User) session.get(User.class, name);
+        session.close();
+        return o;
+    }
+
+    @Override
     public void updateUser(User user) {
         Session session = getSession();
         session.update(user);

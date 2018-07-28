@@ -4,7 +4,7 @@
     <h1>Login page</h1>
     <h2>login or register</h2>
     <div class="container">
-        <form method="post" action="user/login">
+        <form method="post" action="login">
             <input type="hidden" id="id" name="id" value="${user.id}">
             <div class="form-group">
                 <label for="name" class="control-label col-xs-3">User name</label>
@@ -19,10 +19,13 @@
             <div class="form-group">
                 <div class="col-xs-offset-3 col-xs-9">
                     <input class="btn btn-primary" type="submit" value="login">
-                    <input class="btn btn-dark" type="submit" value="register">
-                </div>
+                    <a class="btn btn-primary" id="logout" href="user/register">
+                        register
+                    </a>
+                 </div>
             </div>
         </form>
+
     </div>
 </div>
 <jsp:include page="../fragments/footer.jsp"/>

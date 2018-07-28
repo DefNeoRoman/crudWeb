@@ -1,4 +1,4 @@
-package controller;
+package controller.crud;
 
 import app.AppManager;
 import service.UserService;

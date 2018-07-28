@@ -23,6 +23,14 @@ public class UserDaoJDBCImpl implements UserDao {
         }
     }
 
+    @Override
+    public User getUserByName(String name) {
+
+        throw new UnsupportedOperationException();
+
+    }
+
+
     public void updateUser(User user) {
         try (PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET age=?, name=?, email=?, createdDate=? WHERE id =?;")) {
             executeUpdate(preparedStatement, user);

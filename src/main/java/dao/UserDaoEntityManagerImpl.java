@@ -3,9 +3,7 @@ package dao;
 import db.HibernateUtil;
 import model.User;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-import javax.persistence.Query;
+import javax.persistence.*;
 import java.util.List;
 
 public class UserDaoEntityManagerImpl implements UserDao {
@@ -22,6 +20,18 @@ public class UserDaoEntityManagerImpl implements UserDao {
         transaction.begin();
         em.persist(user);
         transaction.commit();
+    }
+
+    @Override
+    public User getUserByName(String name) {
+        User result = new User();
+        try {
+            TypedQuery<User> tq = em.createQuery("from User u WHERE u.name= :nam ", User.class);
+            result = tq.setParameter("nam", name).getSingleResult();
+        } catch(NoResultException | NonUniqueResultException noresult) {
+
+        }
+        return result;
     }
 
     @Override

@@ -10,5 +10,18 @@
     <link rel="stylesheet" type="text/css" href="../css/main.css">
 </head>
 <body>
+<div class="container">
+
+    <a class="btn btn-info" id="userTask" href="task/user">
+        user task
+    </a>
+
+    <a class="btn btn-info" id="adminTask" href="task/admin">
+        admin task
+    </a>
+    <a class="btn btn-primary" id="logout" href="logout">
+       logout
+    </a>
+</div>
 
 
