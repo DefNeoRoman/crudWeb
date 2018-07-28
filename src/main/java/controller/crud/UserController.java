@@ -24,6 +24,7 @@ public class UserController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) {
+        request.setAttribute("message","admin login success");
         if (request.getParameterNames().hasMoreElements()) {
            if (request.getParameter("limit").equals("0")) {
                 makeDefaultResponse(request, response);

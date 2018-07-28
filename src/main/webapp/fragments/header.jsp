@@ -25,7 +25,9 @@
     <a class="btn btn-primary" id="home" href="login">
        home
     </a>
-    <span class="btn btn-info">${message}</span>
+    <span class="btn btn-info">message : ${message}</span>
+    <span class="btn btn-info">login : ${userName}</span>
+
 </div>
 <hr>
 

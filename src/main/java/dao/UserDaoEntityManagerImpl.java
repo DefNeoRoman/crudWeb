@@ -42,6 +42,7 @@ public class UserDaoEntityManagerImpl implements UserDao {
         user1.setEmail(user.getEmail());
         user1.setCreatedDate(user.getCreatedDate());
         user1.setAge(user.getAge());
+        em.persist(user1);
         em.getTransaction().commit();
     }
 

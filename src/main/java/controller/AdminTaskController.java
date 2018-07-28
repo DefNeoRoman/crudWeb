@@ -13,6 +13,8 @@ public class AdminTaskController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("jsp/successAdminTask.jsp").forward(req, resp);
+        req.setAttribute("message","login success");
+
+        resp.sendRedirect("/user");
     }
 }
