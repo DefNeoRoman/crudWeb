@@ -25,6 +25,7 @@ public class UserDaoEntityManagerImpl implements UserDao {
     @Override
     public User getUserByName(String name) {
         User result = new User();
+        result.setPassword("noPassword");
         try {
             TypedQuery<User> tq = em.createQuery("from User u WHERE u.name= :nam ", User.class);
             result = tq.setParameter("nam", name).getSingleResult();

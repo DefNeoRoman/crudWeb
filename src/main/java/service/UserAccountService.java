@@ -69,7 +69,6 @@ public class UserAccountService {
     public  boolean hasPermission(HttpServletRequest request) {
         String urlPattern = getUrlPattern(request);
         Set<String> allRoles = getAllAppRoles();
-
         for (String role : allRoles) {
             if (!request.isUserInRole(role)) {
                 continue;

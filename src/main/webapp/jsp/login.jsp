@@ -19,7 +19,7 @@
             <div class="form-group">
                 <div class="col-xs-offset-3 col-xs-9">
                     <input class="btn btn-primary" type="submit" value="login">
-                    <a class="btn btn-primary" id="logout" href="user/register">
+                    <a class="btn btn-primary" id="logout" href="register">
                         register
                     </a>
                  </div>

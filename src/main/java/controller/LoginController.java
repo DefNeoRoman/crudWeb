@@ -38,8 +38,9 @@ public class LoginController extends HttpServlet {
         if (user == null) {
             String errorMessage = "Invalid userName or Password";
             req.setAttribute("message", errorMessage);
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("jsp/login.jsp");
+            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jsp/login.jsp");
             dispatcher.forward(req, resp);
+
         }else{
             req.getSession().setAttribute("loginedUser", user);
             req.setAttribute("userName", user.getName());

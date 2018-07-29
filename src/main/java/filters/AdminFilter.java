@@ -7,7 +7,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-@WebFilter("/user")
+@WebFilter("/user/*")
 public class AdminFilter implements Filter {
 
     @Override
@@ -21,6 +21,13 @@ public class AdminFilter implements Filter {
         HttpSession session = request1.getSession();
         User loginedUser = (User) session.getAttribute("loginedUser");
         request.setAttribute("userName",loginedUser.getName());
+        if(!(loginedUser.getRole().equals("ADMIN"))){
+            request1.setAttribute("message","succes login, but bad permissions");
+            ServletContext servletContext = request.getServletContext();
+            RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/jsp/accessDenied.jsp");
+            dispatcher.forward(request, response);
+            return;
+        };
         chain.doFilter(request,response);
     }
 
