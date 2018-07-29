@@ -1,6 +1,6 @@
 import app.AppManager;
-import model.User;
-import service.UserService;
+import app.model.User;
+import app.service.UserService;
 
 import java.util.Random;
 import java.util.UUID;

@@ -1,7 +1,7 @@
-package controller.crud;
+package app.controller.crud;
 
 import app.AppManager;
-import service.UserService;
+import app.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

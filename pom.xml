@@ -15,6 +15,11 @@
     <hibernate-version>5.0.1.Final</hibernate-version>
   </properties>
   <dependencies>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>5.0.8.RELEASE</version>
+    </dependency>
       <dependency>
           <groupId>org.hibernate</groupId>
           <artifactId>hibernate-core</artifactId>

@@ -1,9 +1,9 @@
-package service;
+package app.service;
 
-import dao.UserDao;
-import dao.UserDaoFactory;
+import app.dao.UserDao;
+import app.dao.UserDaoFactory;
 import exceptions.UserAlreadyExistException;
-import model.User;
+import app.model.User;
 
 import java.util.List;
 

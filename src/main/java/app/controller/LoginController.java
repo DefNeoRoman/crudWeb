@@ -1,9 +1,9 @@
-package controller;
+package app.controller;
 
 
 import app.AppManager;
-import model.User;
-import service.UserService;
+import app.model.User;
+import app.service.UserService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;

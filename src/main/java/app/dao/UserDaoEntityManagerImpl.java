@@ -1,7 +1,7 @@
-package dao;
+package app.dao;
 
 import db.HibernateUtil;
-import model.User;
+import app.model.User;
 
 import javax.persistence.*;
 import java.util.List;

@@ -1,7 +1,7 @@
 package app;
 
-import service.UserService;
-import service.UserServiceImpl;
+import app.service.UserService;
+import app.service.UserServiceImpl;
 
 public class AppManager {
     private static UserService service = UserServiceImpl.getInstance();

@@ -1,7 +1,7 @@
-package dao;
+package app.dao;
 
 import db.DbHelper;
-import model.User;
+import app.model.User;
 
 import java.sql.*;
 import java.util.ArrayList;

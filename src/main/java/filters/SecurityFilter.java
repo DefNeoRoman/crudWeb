@@ -1,6 +1,6 @@
 package filters;
 
-import model.User;
+import app.model.User;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;

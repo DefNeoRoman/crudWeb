@@ -1,7 +1,7 @@
 package hibernateTests;
 
 import db.HibernateUtil;
-import model.User;
+import app.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class HibernateTest {
     }
     @Test
     public void persistenceTest(){
-        entityManagerFactory = Persistence.createEntityManagerFactory("model");
+        entityManagerFactory = Persistence.createEntityManagerFactory("app/model");
         //New op
         User user = new User();
         user.setAge(90);

@@ -1,7 +1,7 @@
 package db;
 import java.util.Properties;
 
-import model.User;
+import app.model.User;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -14,7 +14,7 @@ import javax.persistence.Persistence;
 public class HibernateUtil {
     private static Properties prop = DbHelper.getProperties();
     private static SessionFactory sessionJavaConfigFactory;
-    private static  EntityManagerFactory emf = Persistence.createEntityManagerFactory("model");
+    private static  EntityManagerFactory emf = Persistence.createEntityManagerFactory("app/model");
     private static SessionFactory buildSessionJavaConfigFactory() {
         try {
             Configuration configuration = new Configuration();

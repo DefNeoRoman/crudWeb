@@ -1,4 +1,4 @@
-<%@ page import="model.User" %>
+<%@ page import="app.model.User" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -29,7 +29,7 @@
         <tbody id="arrayTable">
 
         <c:forEach items="${userList}" var="user">
-            <jsp:useBean id="user" class="model.User"/>
+            <jsp:useBean id="user" class="app.model.User"/>
             <tr id = "${user.id}">
                 <td name="id"><c:out value="${user.id}"/></td>
                 <td name="name"><c:out value="${user.name}"/></td>
