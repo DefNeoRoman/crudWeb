@@ -29,7 +29,6 @@ public class AdminFilter implements Filter {
             dispatcher.forward(request, response);
             return;
         }
-        ;
         chain.doFilter(request, response);
     }
 

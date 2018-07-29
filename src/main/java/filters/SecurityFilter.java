@@ -28,7 +28,7 @@ public class SecurityFilter implements Filter {
             req.setAttribute("message", message);
         }
         User loginedUser = (User) session.getAttribute("loginedUser");
-        if ("/register".equals(request.getServletPath())) {
+        if ("/register".equals(request.getServletPath()) || "/login".equals(request.getServletPath())) {
             chain.doFilter(req, resp);
             return;
         }
@@ -37,21 +37,12 @@ public class SecurityFilter implements Filter {
             req.setAttribute("userName", userName);
             chain.doFilter(request, response);
         } else {
-            String name = req.getParameter("name");
-            if (name != null) {
-                if (" ".equals(name) || name.isEmpty()) {
-                    req.setAttribute("message", "no active login");
-                    RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/jsp/login.jsp");
-                    dispatcher.forward(request, response);
-                    return;
-                } else {
-                    chain.doFilter(request, response);
-                }
-            } else {
-                chain.doFilter(request, response);
-            }
+            req.setAttribute("message", "no active login");
+            response.sendRedirect("/login");
+            return;
         }
     }
+
 
     @Override
     public void destroy() {
