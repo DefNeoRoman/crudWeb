@@ -36,7 +36,11 @@ public class UserCreateController extends HttpServlet{
         user.setName(request.getParameter("name"));
         user.setEmail(request.getParameter("email"));
         user.setAge(Integer.parseInt(request.getParameter("age")));
-        service.addUser(user);
+        try {
+            service.addUser(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         response.sendRedirect("/user?action=getLimit&currentPage="+currentPage+"&limit="+limit);
     }
 }

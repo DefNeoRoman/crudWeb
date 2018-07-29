@@ -2,6 +2,7 @@ package service;
 
 import dao.UserDao;
 import dao.UserDaoFactory;
+import exceptions.UserAlreadyExistException;
 import model.User;
 
 import java.util.List;
@@ -28,8 +29,13 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserById(Integer.parseInt(userId));
     }
 
-    public void addUser(User user) {
-        userDao.addUser(user);
+    public void addUser(User user) throws Exception {
+        User userByName = userDao.getUserByName(user.getName());
+        if(userByName.isNew()){
+            userDao.addUser(user);
+        }else {
+            throw new UserAlreadyExistException("user already in database");
+        }
     }
 
     public void updateUser(User user) {
@@ -39,6 +45,7 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(int userId) {
         userDao.deleteUser(userId);
     }
+
     public User findUserByNameAndPassword(String userName, String password) {
         User u = userDao.getUserByName(userName);
         if (u != null && u.getPassword().equals(password)) {

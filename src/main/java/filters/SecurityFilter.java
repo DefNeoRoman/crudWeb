@@ -1,8 +1,6 @@
 package filters;
 
-import app.AppManager;
 import model.User;
-import service.UserAccountService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -13,12 +11,6 @@ import java.io.IOException;
 
 @WebFilter("/*")
 public class SecurityFilter implements Filter {
-
-    private UserAccountService userAccountService;
-
-    public SecurityFilter() {
-        this.userAccountService = AppManager.getAccountService();
-    }
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -31,23 +23,31 @@ public class SecurityFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
         HttpSession session = request.getSession();
         ServletContext servletContext = request.getServletContext();
+        String message = req.getParameter("message");
+        if (message != null) {
+            req.setAttribute("message", message);
+        }
         User loginedUser = (User) session.getAttribute("loginedUser");
-        if (loginedUser != null && !loginedUser.isNew()) {
+        if ("/register".equals(request.getServletPath())) {
+            chain.doFilter(req, resp);
+            return;
+        }
+        if (loginedUser != null) {
             String userName = loginedUser.getName();
             req.setAttribute("userName", userName);
             chain.doFilter(request, response);
         } else {
             String name = req.getParameter("name");
-            if(name != null){
-                if(" ".equals(name) || name.isEmpty()){
-                    req.setAttribute("message","no active login");
+            if (name != null) {
+                if (" ".equals(name) || name.isEmpty()) {
+                    req.setAttribute("message", "no active login");
                     RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/jsp/login.jsp");
                     dispatcher.forward(request, response);
                     return;
-                }else{
+                } else {
                     chain.doFilter(request, response);
                 }
-            }else{
+            } else {
                 chain.doFilter(request, response);
             }
         }

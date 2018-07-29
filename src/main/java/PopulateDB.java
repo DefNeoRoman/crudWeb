@@ -13,15 +13,23 @@ public class PopulateDB {
         User admin = new User("admin", "admin@mail.ru", 90);
         admin.setRole("ADMIN");
         admin.setPassword("admin");
-        service.addUser(admin);
+        try {
+            service.addUser(admin);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         for (int i = 0; i < 100; i++) {
             User user = new User(UUID.randomUUID().toString(),
                     UUID.randomUUID() + "@MAIL.COM",
                     i + random.nextInt()
             );
 
-            service.addUser(
-                    user);
+            try {
+                service.addUser(
+                        user);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         System.exit(0);
     }

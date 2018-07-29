@@ -32,7 +32,13 @@ public class RegisterController extends HttpServlet{
         user.setName(request.getParameter("name"));
         user.setEmail(request.getParameter("email"));
         user.setAge(Integer.parseInt(request.getParameter("age")));
-        service.addUser(user);
+
+        try {
+            service.addUser(user);
+        } catch (Exception e) {
+                response.sendRedirect("/login?message="+e.getMessage());
+                return;
+        }
         response.sendRedirect("/login");
     }
 }
