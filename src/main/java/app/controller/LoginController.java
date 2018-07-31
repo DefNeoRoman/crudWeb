@@ -4,50 +4,53 @@ package app.controller;
 import app.AppManager;
 import app.model.User;
 import app.service.UserService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/login")
-public class LoginController extends HttpServlet {
-    private UserService userService;
+@Controller
+@RequestMapping(value = "/login")
+@SessionAttributes(types = User.class)
+public class LoginController {
 
+
+    private UserService userService;
 
     public LoginController() {
         userService = AppManager.getService();
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ServletContext servletContext = this.getServletContext();
-        RequestDispatcher dispatcher = servletContext.getRequestDispatcher("/jsp/login.jsp");
-        dispatcher.forward(req, resp);
+    @RequestMapping(method = RequestMethod.GET)
+    protected ModelAndView doGet() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.getModel().put("loginedUser",new User());
+        modelAndView.setViewName("/login");
+        return modelAndView;
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String userName = req.getParameter("name");
-        String password = req.getParameter("password");
-        User user = userService.findUserByNameAndPassword(userName, password);
+    @RequestMapping(method = RequestMethod.POST)
+    protected ModelAndView doPost(@RequestParam String name, @RequestParam String password) throws ServletException, IOException {
+        ModelAndView modelAndView = new ModelAndView();
+        User user = userService.findUserByNameAndPassword(name, password);
         if (user == null) {
             String errorMessage = "Invalid userName or Password";
-            req.setAttribute("message", errorMessage);
-            RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/jsp/login.jsp");
-            dispatcher.forward(req, resp);
+            modelAndView.addObject("message",errorMessage);
+            modelAndView.setViewName("/login");
+            return modelAndView;
 
         }else{
-            req.getSession().setAttribute("loginedUser", user);
-            req.setAttribute("userName", user.getName());
             String message = "login success";
-            req.setAttribute("message", message);
-            req.getRequestDispatcher("jsp/login.jsp").forward(req,resp);
+            modelAndView.getModel().put("loginedUser",user);
+            modelAndView.addObject("userName", user.getName());
+            modelAndView.addObject("message", message);
+            modelAndView.setViewName("/login");
+            return modelAndView;
         }
-
     }
 }

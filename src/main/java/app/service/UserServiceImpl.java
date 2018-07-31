@@ -4,6 +4,7 @@ import app.dao.UserDao;
 import app.dao.UserDaoFactory;
 import exceptions.UserAlreadyExistException;
 import app.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 

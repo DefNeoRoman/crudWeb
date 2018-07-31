@@ -16,6 +16,7 @@ import java.util.List;
 @WebServlet("/user")
 public class UserController extends HttpServlet {
     public static final int FIRST_LAUNCH = 1;
+
     private UserService service;
 
     public UserController() {

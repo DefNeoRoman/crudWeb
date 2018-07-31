@@ -27,20 +27,20 @@ public class SecurityFilter implements Filter {
         if (message != null) {
             req.setAttribute("message", message);
         }
-        User loginedUser = (User) session.getAttribute("loginedUser");
+     //   User loginedUser = (User) session.getAttribute("loginedUser");
         if ("/register".equals(request.getServletPath()) || "/login".equals(request.getServletPath())) {
             chain.doFilter(req, resp);
             return;
         }
-        if (loginedUser != null) {
-            String userName = loginedUser.getName();
-            req.setAttribute("userName", userName);
-            chain.doFilter(request, response);
-        } else {
+//        if (loginedUser != null) {
+//            String userName = loginedUser.getName();
+//            req.setAttribute("userName", userName);
+//            chain.doFilter(request, response);
+//        } else
             req.setAttribute("message", "no active login");
             response.sendRedirect("/login");
             return;
-        }
+
     }
 
 
